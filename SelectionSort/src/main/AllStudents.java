@@ -13,6 +13,14 @@ public class AllStudents {
 		students.add(s);
 	}
 	
+	public int getSize() {
+		return students.size();
+	}
+	
+	public ArrayList<StudentInfo> getStudentsArray() {
+		return students;
+	}
+	
 	public ArrayList<StudentInfo> sortGrades() {
 		int min = 0;
 		for(int i=1; i<students.size(); i++) {

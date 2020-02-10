@@ -39,7 +39,7 @@ public class StudentInfo implements Comparable {
 		return name;
 	}
 	
-	private double getTestAvg() {
+	public double getTestAvg() {
 		double sum = 0;
 		for(double d : tests) {
 			sum += d;
@@ -47,7 +47,7 @@ public class StudentInfo implements Comparable {
 		return sum/testCount;
 	}
 	
-	private double getQuizAvg() {
+	public double getQuizAvg() {
 		double sum = 0;
 		for(double d : quizzes) {
 			sum += d;
@@ -60,6 +60,6 @@ public class StudentInfo implements Comparable {
 	}
 	
 	public int compareTo(Object obj) {
-		return name.compareTo(((StudentInfo)obj).getName());
+		return name.toLowerCase().compareTo(((StudentInfo)obj).getName().toLowerCase());
 	}
 }
