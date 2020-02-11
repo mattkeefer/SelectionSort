@@ -9,26 +9,55 @@ public class StudentInfo implements Comparable {
 	private int quizCount;
 	private double hwAvg;
 	
-	public StudentInfo(String nm) {
+	public StudentInfo(String nm) throws FormatException {
 		tests = new double[5];
 		quizzes = new double[8];
-		name = nm;
+		if(nm.trim().equals("")) {
+			throw new FormatException("Name cannot be blank.");
+		}
+		else {
+			name = nm;
+		}
 		testCount = 0;
 		quizCount = 0;
 	}
 	
-	public void addTest(double d) {
-		tests[testCount] = d;
-		testCount++;
+	public void addTest(String str) throws FormatException {
+		try {
+			if(str.trim().equals("")) {
+				throw new FormatException("");
+			}
+			tests[testCount] = Double.parseDouble(str.trim());
+			testCount++;
+		}
+		catch(NumberFormatException e) {
+			throw new FormatException("Invalid test input.");
+		}
 	}
 	
-	public void addQuiz(double d) {
-		quizzes[quizCount] = d;
-		quizCount++;
+	public void addQuiz(String str) throws FormatException {
+		try {
+			if(str.trim().equals("")) {
+				throw new FormatException("");
+			}
+			quizzes[quizCount] = Double.parseDouble(str.trim());
+			quizCount++;
+		}
+		catch(NumberFormatException e) {
+			throw new FormatException("Invalid quiz input.");
+		}
 	}
 	
-	public void setHwAvg(double d) {
-		hwAvg = d;
+	public void setHwAvg(String str) throws FormatException {
+		try {
+			if(str.trim().equals("")) {
+				throw new FormatException("Invalid homework average.");
+			}
+			hwAvg = Double.parseDouble(str.trim());
+		}
+		catch(NumberFormatException e) {
+			throw new FormatException("Invalid homework average.");
+		}
 	}
 	
 	public double getHwAvg() {
