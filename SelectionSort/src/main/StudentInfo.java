@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 public class StudentInfo implements Comparable {
 	
 	private String name;
@@ -22,13 +24,38 @@ public class StudentInfo implements Comparable {
 		quizCount = 0;
 	}
 	
+	public StudentInfo(String nm,double hw) {
+		name=nm;
+		tests=new double[5];
+		quizzes=new double[8];
+		testCount=0;
+		quizCount=0;
+		hwAvg = hw;
+		Random r = new Random();
+		for(int i=0;i<5;i++) {
+			addTest(50 + (100 - 50) * r.nextDouble());
+		}
+		for(int i=0;i<8;i++) {
+			addQuiz(50 + (100 - 50) * r.nextDouble());
+		}
+	}
+	
+	public void addTest(double d) {
+		tests[testCount] = d;
+		testCount++;
+	}
+	
+	public void addQuiz(double d) {
+		quizzes[quizCount] = d;
+		quizCount++;
+	}
+	
 	public void addTest(String str) throws FormatException {
 		try {
-			if(str.trim().equals("")) {
-				throw new FormatException("");
+			if(!str.trim().equals("")) {
+				tests[testCount] = Double.parseDouble(str.trim());
+				testCount++;
 			}
-			tests[testCount] = Double.parseDouble(str.trim());
-			testCount++;
 		}
 		catch(NumberFormatException e) {
 			throw new FormatException("Invalid test input.");
@@ -37,11 +64,10 @@ public class StudentInfo implements Comparable {
 	
 	public void addQuiz(String str) throws FormatException {
 		try {
-			if(str.trim().equals("")) {
-				throw new FormatException("");
+			if(!str.trim().equals("")) {
+				quizzes[quizCount] = Double.parseDouble(str.trim());
+				quizCount++;
 			}
-			quizzes[quizCount] = Double.parseDouble(str.trim());
-			quizCount++;
 		}
 		catch(NumberFormatException e) {
 			throw new FormatException("Invalid quiz input.");
@@ -52,6 +78,9 @@ public class StudentInfo implements Comparable {
 		try {
 			if(str.trim().equals("")) {
 				throw new FormatException("Invalid homework average.");
+			}
+			if(Double.parseDouble(str.trim())<0 || Double.parseDouble(str.trim())>100) {
+				//ERROR
 			}
 			hwAvg = Double.parseDouble(str.trim());
 		}

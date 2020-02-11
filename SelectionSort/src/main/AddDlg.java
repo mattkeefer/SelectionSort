@@ -28,9 +28,12 @@ public class AddDlg extends GBDialog {
 	JButton add = addButton("Add", 10,1,2,1);
 	JButton exit = addButton("Exit", 10,3,2,1);
 	
+	AllStudents all;
+	
 	
 	public AddDlg(JFrame frm, AllStudents a) throws FormatException {
 		super(frm);
+		all = a;
 		setSize(800, 650);
 		setTitle("Add Students");
 		setVisible(true);
@@ -58,11 +61,10 @@ public class AddDlg extends GBDialog {
 				s.addQuiz(quiz8.getText());
 				s.setHwAvg(hw.getText());
 				clearFields();
+				all.addStudent(s);
 			}
 			catch(FormatException e) {
-				if(!e.getMessage().equals("")) {
-					messageBox(e.getMessage());
-				}
+				messageBox(e.getMessage());
 			}
 		}
 	}
