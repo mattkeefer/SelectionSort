@@ -14,7 +14,7 @@ public class SelectionUI extends GBFrame {
 	JTable table = null;
 	DefaultTableModel model = null;
 	Object[][] data;
-	JButton add = addButton("Add Students", 2,1,1,1);
+	JButton add = addButton("Add Student", 2,1,1,1);
 	JLabel sortLbl = addLabel("Sort By:", 2,2,1,1);
 	ButtonGroup sortMethod = new ButtonGroup();
 	JRadioButton name = addRadioButton("Name", 2,3,1,1);
@@ -39,6 +39,8 @@ public class SelectionUI extends GBFrame {
 		output.add(scrollpane);
 		table.disable();
 		updateTable(a.getStudentsArray());
+		sortMethod.add(name);
+		sortMethod.add(grade);
 		name.addChangeListener(cl);
 		grade.addChangeListener(cl);
 	}
@@ -59,16 +61,21 @@ public class SelectionUI extends GBFrame {
 	public static void main(String[] args) {
 		JFrame frm = new SelectionUI();
 		frm.setTitle("Selection Sort");
-		frm.setSize(800, 650);
+		frm.setSize(800, 460);
 		frm.setVisible(true);
-		frm.getContentPane().setBackground(new Color(204, 78, 92));
+		frm.getContentPane().setBackground(new Color(217, 130, 176));
 	}
 	
 	public void buttonClicked(JButton button) {
 		if(button==add) {
 			try {
+				if(a.getStudentsArray().size()==15) {
+					throw new FormatException("Max of 15 students.");
+				}
 				AddDlg ad = new AddDlg(this, a);
-				updateTable(a.getStudentsArray());
+				updateTable(a.sortNames());
+				name.setSelected(true);
+				grade.setSelected(false);
 			}
 			catch(FormatException e) {
 				messageBox(e.getMessage());

@@ -11,20 +11,27 @@ public class StudentInfo implements Comparable {
 	private int quizCount;
 	private double hwAvg;
 	
-	public StudentInfo(String nm) throws FormatException {
-		tests = new double[5];
-		quizzes = new double[8];
+	public StudentInfo(String nm, double[] t, double[] q, double hw) throws FormatException {
+		tests=new double[5];
+		quizzes=new double[8];
+		testCount=0;
+		quizCount=0;
+		for(double d : t) {
+			addTest(d);
+		}
+		for(double d : q) {
+			addQuiz(d);
+		}
 		if(nm.trim().equals("")) {
 			throw new FormatException("Name cannot be blank.");
 		}
 		else {
 			name = nm;
 		}
-		testCount = 0;
-		quizCount = 0;
+		hwAvg = hw;
 	}
 	
-	public StudentInfo(String nm,double hw) {
+	public StudentInfo(String nm, double hw) {
 		name=nm;
 		tests=new double[5];
 		quizzes=new double[8];
@@ -40,53 +47,14 @@ public class StudentInfo implements Comparable {
 		}
 	}
 	
-	public void addTest(double d) {
+	private void addTest(double d) {
 		tests[testCount] = d;
 		testCount++;
 	}
 	
-	public void addQuiz(double d) {
+	private void addQuiz(double d) {
 		quizzes[quizCount] = d;
 		quizCount++;
-	}
-	
-	public void addTest(String str) throws FormatException {
-		try {
-			if(!str.trim().equals("")) {
-				tests[testCount] = Double.parseDouble(str.trim());
-				testCount++;
-			}
-		}
-		catch(NumberFormatException e) {
-			throw new FormatException("Invalid test input.");
-		}
-	}
-	
-	public void addQuiz(String str) throws FormatException {
-		try {
-			if(!str.trim().equals("")) {
-				quizzes[quizCount] = Double.parseDouble(str.trim());
-				quizCount++;
-			}
-		}
-		catch(NumberFormatException e) {
-			throw new FormatException("Invalid quiz input.");
-		}
-	}
-	
-	public void setHwAvg(String str) throws FormatException {
-		try {
-			if(str.trim().equals("")) {
-				throw new FormatException("Invalid homework average.");
-			}
-			if(Double.parseDouble(str.trim())<0 || Double.parseDouble(str.trim())>100) {
-				//ERROR
-			}
-			hwAvg = Double.parseDouble(str.trim());
-		}
-		catch(NumberFormatException e) {
-			throw new FormatException("Invalid homework average.");
-		}
 	}
 	
 	public double getHwAvg() {
