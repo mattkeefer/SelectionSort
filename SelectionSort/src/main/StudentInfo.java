@@ -1,26 +1,26 @@
 package main;
-
+import java.util.*;
 import java.util.Random;
 
 public class StudentInfo implements Comparable {
 	
 	private String name;
-	private double[] tests;
+	private ArrayList<Double> tests;
 	private int testCount;
-	private double[] quizzes;
+	private ArrayList<Double> quizzes;
 	private int quizCount;
 	private double hwAvg;
 	
-	public StudentInfo(String nm, double[] t, double[] q, double hw) throws FormatException {
-		tests=new double[5];
-		quizzes=new double[8];
-		testCount=0;
-		quizCount=0;
-		for(double d : t) {
-			addTest(d);
+	public StudentInfo(String nm, double[] t, int tCount, double[] q, int qCount, double hw) throws FormatException {
+		tests = new ArrayList<>();
+		quizzes = new ArrayList<>();
+		testCount = tCount;
+		quizCount = qCount;
+		for(int i=0; i<testCount; i++) {
+			tests.add(t[i]);
 		}
-		for(double d : q) {
-			addQuiz(d);
+		for(int i=0; i<quizCount; i++) {
+			quizzes.add(q[i]);
 		}
 		if(nm.trim().equals("")) {
 			throw new FormatException("Name cannot be blank.");
@@ -33,10 +33,10 @@ public class StudentInfo implements Comparable {
 	
 	public StudentInfo(String nm, double hw) {
 		name=nm;
-		tests=new double[5];
-		quizzes=new double[8];
-		testCount=0;
-		quizCount=0;
+		tests = new ArrayList<>();
+		quizzes = new ArrayList<>();
+		testCount = 0;
+		quizCount = 0;
 		hwAvg = hw;
 		Random r = new Random();
 		for(int i=0;i<5;i++) {
@@ -48,12 +48,12 @@ public class StudentInfo implements Comparable {
 	}
 	
 	private void addTest(double d) {
-		tests[testCount] = d;
+		tests.add(d);
 		testCount++;
 	}
 	
 	private void addQuiz(double d) {
-		quizzes[quizCount] = d;
+		quizzes.add(d);
 		quizCount++;
 	}
 	

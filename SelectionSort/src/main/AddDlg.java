@@ -58,7 +58,7 @@ public class AddDlg extends GBDialog {
 					throw new FormatException("Please enter at least one quiz score.");
 				}
 				setHwAvg(hw.getText());
-				StudentInfo s = new StudentInfo(name.getText().trim(), tests, quizzes, hwAvg);
+				StudentInfo s = new StudentInfo(name.getText().trim(), tests, testCount, quizzes, quizCount, hwAvg);
 				clearFields();
 				all.addStudent(s);
 				dispose();

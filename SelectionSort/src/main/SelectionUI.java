@@ -38,7 +38,7 @@ public class SelectionUI extends GBFrame {
 		JScrollPane scrollpane = new JScrollPane(table);
 		output.add(scrollpane);
 		table.disable();
-		updateTable(a.getStudentsArray());
+		//updateTable(a.getStudentsArray());
 		sortMethod.add(name);
 		sortMethod.add(grade);
 		name.addChangeListener(cl);
@@ -96,6 +96,8 @@ public class SelectionUI extends GBFrame {
 			addStudentToTable(s);
 		}
 		table.repaint();
+		Statistics stats = new Statistics(a);
+		System.out.println(stats.getInformation());
 	}
 	
 	private void addStudentToTable(StudentInfo s) {
