@@ -1,6 +1,7 @@
 package main;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -19,7 +20,7 @@ public class SelectionUI extends GBFrame {
 	ButtonGroup sortMethod = new ButtonGroup();
 	JRadioButton name = addRadioButton("Name", 2,3,1,1);
 	JRadioButton grade = addRadioButton("Grade", 2,4,1,1);
-	JButton populate = addButton("Populate", 3,1,4,1);
+	JTextArea out = addTextArea("", 3,1,4,1);
 	
 	AllStudents a = new AllStudents();
 	
@@ -38,7 +39,12 @@ public class SelectionUI extends GBFrame {
 		JScrollPane scrollpane = new JScrollPane(table);
 		output.add(scrollpane);
 		table.disable();
-		//updateTable(a.getStudentsArray());
+		out.setEditable(false);
+		out.setBackground(new Color(217, 130, 176));
+		out.setForeground(new Color(255, 255, 255));
+		out.setFont(new Font("Arial", Font.TRUETYPE_FONT, 15));
+		table.setForeground(new Color(217, 130, 176));
+		table.setFont(new Font("Arial", Font.TRUETYPE_FONT, 13));
 		sortMethod.add(name);
 		sortMethod.add(grade);
 		name.addChangeListener(cl);
@@ -61,7 +67,7 @@ public class SelectionUI extends GBFrame {
 	public static void main(String[] args) {
 		JFrame frm = new SelectionUI();
 		frm.setTitle("Selection Sort");
-		frm.setSize(800, 460);
+		frm.setSize(800, 450);
 		frm.setVisible(true);
 		frm.getContentPane().setBackground(new Color(217, 130, 176));
 	}
@@ -73,20 +79,15 @@ public class SelectionUI extends GBFrame {
 					throw new FormatException("Max of 15 students.");
 				}
 				AddDlg ad = new AddDlg(this, a);
-				updateTable(a.sortNames());
-				name.setSelected(true);
-				grade.setSelected(false);
+				if(a.getStudentsArray().size()>0) {
+					updateTable(a.sortNames());
+					name.setSelected(true);
+					grade.setSelected(false);
+				}
 			}
 			catch(FormatException e) {
 				messageBox(e.getMessage());
 			}
-		}
-		if(button==populate) {
-			a.addStudent(new StudentInfo("Bob", 80));
-			a.addStudent(new StudentInfo("Carlos", 76));
-			a.addStudent(new StudentInfo("Alex", 91));
-			a.addStudent(new StudentInfo("Dylan", 62));
-			updateTable(a.getStudentsArray());
 		}
 	}
 	
@@ -97,7 +98,7 @@ public class SelectionUI extends GBFrame {
 		}
 		table.repaint();
 		Statistics stats = new Statistics(a);
-		System.out.println(stats.getInformation());
+		out.setText(stats.getInformation());
 	}
 	
 	private void addStudentToTable(StudentInfo s) {

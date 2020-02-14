@@ -74,6 +74,7 @@ public class AddDlg extends GBDialog {
 				if(testCount==5) {
 					addTest.setEnabled(false);
 					test.setEditable(false);
+					quiz.grabFocus();
 				}
 				else {
 					test.grabFocus();
@@ -90,6 +91,7 @@ public class AddDlg extends GBDialog {
 				if(quizCount==8) {
 					addQuiz.setEnabled(false);
 					quiz.setEditable(false);
+					hw.grabFocus();
 				}
 				else {
 					quiz.grabFocus();

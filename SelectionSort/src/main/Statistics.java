@@ -7,7 +7,9 @@ public class Statistics {
 	private int size;
 	
 	public Statistics(AllStudents a) {
-		for(StudentInfo s : a.sortGrades()) {
+		grades = new ArrayList<>();
+		ArrayList<StudentInfo> input = a.sortGrades();
+		for(StudentInfo s : input) {
 			grades.add(s.getFinalAverage());
 		}
 		size = grades.size();
@@ -23,12 +25,9 @@ public class Statistics {
 	
 	private String getMedian() {
 		if(size%2!=0) {
-			return String.format("%d", grades.get(size/2));
+			return String.format("%.1f", grades.get(size/2));
 		}
 		double median = (grades.get(size/2-1)+grades.get(size/2))/2.0;
-		if(median==(int)median) {
-			return String.format("%d", (int)median);
-		}
 		return String.format("%.3f", median);
 	}
 	
@@ -81,6 +80,6 @@ public class Statistics {
 	}
 	
 	public String getInformation() {
-		return "Mean: " + String.format("%.3f", getMean()) + "\nMedian: " + getMedian() + "\nMode: " + getMode() + "\nStandard Deviation: " + getDeviation();
+		return "Final Average Comparison\n\n" + "Mean: " + String.format("%.3f", getMean()) + "\nMedian: " + getMedian() + "\nMode: " + getMode() + "\nStandard Deviation: " + getDeviation();
 	}
 }

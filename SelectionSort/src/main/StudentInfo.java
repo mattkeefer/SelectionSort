@@ -31,32 +31,6 @@ public class StudentInfo implements Comparable {
 		hwAvg = hw;
 	}
 	
-	public StudentInfo(String nm, double hw) {
-		name=nm;
-		tests = new ArrayList<>();
-		quizzes = new ArrayList<>();
-		testCount = 0;
-		quizCount = 0;
-		hwAvg = hw;
-		Random r = new Random();
-		for(int i=0;i<5;i++) {
-			addTest(50 + (100 - 50) * r.nextDouble());
-		}
-		for(int i=0;i<8;i++) {
-			addQuiz(50 + (100 - 50) * r.nextDouble());
-		}
-	}
-	
-	private void addTest(double d) {
-		tests.add(d);
-		testCount++;
-	}
-	
-	private void addQuiz(double d) {
-		quizzes.add(d);
-		quizCount++;
-	}
-	
 	public double getHwAvg() {
 		return hwAvg;
 	}
